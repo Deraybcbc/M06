@@ -1,0 +1,54 @@
+<div id="app">
+
+  <button @click="visible = !visible">Administracion</button>
+
+  </br></br>
+
+  <div v-if="visible">
+    <input type="text" v-model="data.gatos[data.catActive].name">
+    <input type="text" v-model="data.gatos[data.catActive].imagen">
+    <input type="text" v-model="data.gatos[data.catActive].nclicks">
+  </div>
+
+  <ul>
+      <li v-for="(gato, index) in data.gatos" :key="index">
+          <a style="width: 90px; margin:10px;" @click="data.catActive = index">{{gato.name}}</a>
+            
+      </li>   
+  </ul>
+   
+  <div v-if="data.catActive != null" id="container-img">
+      <img :src="data.gatos[data.catActive].imagen" style="width: 8cm; height: 5cm;" @click="data.gatos[data.catActive].nclicks++" >
+      <p>{{data.gatos[data.catActive].name}}</p>
+      <p>{{data.gatos[data.catActive].nclicks}}</p>
+  </div>
+
+</div>
+
+<script type="module">
+  import { createApp, ref } from 'https://unpkg.com/vue@3/dist/vue.esm-browser.js'
+
+  createApp({
+    setup() {
+
+      const data = ref({
+          catActive : null,
+          gatos: [
+              { name: "Garfield", imagen: "https://s1.ppllstatics.com/lasprovincias/www/multimedia/202112/12/media/cortadas/gatos-kb2-U160232243326NVC-1248x770@Las%20Provincias.jpg", nclicks: 0 },
+              { name: "Geronimo", imagen: "https://www.purina.es/sites/default/files/2021-12/Temperatura%20corporal%20de%20los%20gatos_teaser_0.jpg", nclicks: 0 },
+              { name: "Gary", imagen: "https://urgenciesveterinaries.com/wp-content/uploads/2023/09/survet-gato-caida-pelo-01.jpeg", nclicks: 0 },
+              { name: "Coco", imagen: "https://media.es.wired.com/photos/657cb5b81e17b099f8f9e15c/16:9/w_3008,h_1692,c_limit/gatos%20172050389.jpg", nclicks: 0 },
+              { name: "Paco", imagen: "https://www.clinicaolivar.es/wp-content/uploads/2023/02/Toxoplasmosis-en-gatos-en-qu%C3%A9-consiste-y-c%C3%B3mo-prevenir-su-contagio-para-Cl%C3%ADnica-El-Olivar.jpg", nclicks: 0 }
+          ]
+      });
+
+      const visible = ref(false);
+      const message = ref('Hello Vue!');
+
+
+      return {
+        message, data, visible
+      }
+    }
+  }).mount('#app')
+</script>
