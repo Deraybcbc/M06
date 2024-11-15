@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+    </head>
+    <body>
+        <div id="app">
+            <div class="paginaInicial">
+                <div v-if="divActivo == 'pantallaInicio'">
+                    <h1>Bienvenido</h1>
+                    <button
+                        @click="cambiarPantalla('calculadora')">Calculadora</button>
+                </div>
+            </div>
+
+            <div class="paginaCalculadora">
+                <div v-if="divActivo == 'calculadora'">
+                    <h1>Calculador AJAX</h1>
+                    <div class="inputs">
+                        <div class="inputA">
+                            <span>A</span>
+                            <input type="number" v-model="operacion.data.a"
+                                @input="operacion.data.a">
+                        </div>
+
+                        <div class="inputB">
+                            <span>B</span>
+                            <input type="number" v-model="operacion.data.b"
+                                @input="operacion.data.b">
+                        </div>
+
+                        <div class="selectOp">
+                            <select name="ops" id="operaciones">
+                                <option value="suma">Suma</option>
+                                <option value="resta">Resta</option>
+                                <option value="mult">Mult</option>
+                            </select>
+                        </div>
+
+                    </div>
+
+                    <button @click="resultadoOperacion">Calcular</button>
+
+                    <button
+                        @click="cambiarPantalla('pantallaInicio')">Home</button>
+                </div>
+            </div>
+
+            <div class="res">
+                <div v-if="divActivo == 'resultados'">
+                    <div v-if="loading" class="screen-loading">
+                        <img src="./cargando.gif" alt="pantalla">
+                    </div>
+
+                    <div v-if="!loading">
+                        <h1>Resultados</h1>
+                        <h2>{{resultado}}</h2>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+        <script type="module" src="./utils.js"></script>
+
+    </body>
+</html>
+
+<style scoped>
+    .screen-loading {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 2rem;
+    }
+</style>
